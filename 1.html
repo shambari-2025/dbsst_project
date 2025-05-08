@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Показ параграфов</title>
+  <style>
+    p {
+		text-align: center;
+	}
+	
+	.hidden {
+		display: none;
+    }
+  </style>
+</head>
+<body>
+
+<p id="paragraph1">Первый параграф</p>
+<p id="paragraph2" class="hidden">Второй параграф</p>
+
+<script>
+  // Функция для переключения параграфов с интервалом в 5 секунд
+  function toggleParagraphs() {
+    // Переключаем видимость параграфов
+    document.getElementById('paragraph1').classList.toggle('hidden');
+    document.getElementById('paragraph2').classList.toggle('hidden');
+  }
+
+  // Устанавливаем интервал для вызова функции toggleParagraphs каждые 5 секунд
+  setInterval(toggleParagraphs, 5000);
+</script>
+
+</body>
+</html>
