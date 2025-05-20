@@ -1,0 +1,669 @@
+<div class="pcoded-content">
+	<div class="page-header card">
+		<div class="row align-items-end">
+			<div class="col-lg-12">
+				<div class="page-header-breadcrumb">
+					<ul class=" breadcrumb breadcrumb-title">
+						<li class="breadcrumb-item">
+							<a href="<?=MY_URL?>"><i class="feather icon-home"></i></a>
+						</li>
+						<li class="breadcrumb-item">
+							Донишҷӯён
+						</li>
+						
+						<li class="breadcrumb-item">
+							Иловакунӣ
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="pcoded-inner-content">
+		<div class="main-body">
+			<div class="page-wrapper">
+				<div class="page-body">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-header">
+									<h5>Иловакунӣ</h5>
+								</div>
+								<div class="card-block">
+									<p id="info_std" style="font-size: 16px;"></p>
+									
+									<form name="add_form" action="<?=MY_URL?>?option=students&action=insert" method="post" enctype="multipart/form-data">
+										<table class="addform">
+											<tr>
+												<td colspan="2">
+													<label for="id_faculty">Факултет:</label>
+													<select name="id_faculty" id="id_faculty" class="form-control" required>
+														<option value="">-Интихоб кунед-</option>
+														<?php foreach($faculties as $item):?>
+															<option value="<?=$item['id'];?>"><?=$item['title']?></option>
+														<?php endforeach;?>
+													</select>											
+												</td>
+												
+												<td>
+													<label for="id_s_l">Зинаи таҳсил:</label>
+													<select name="id_s_l" id="id_s_l" class="form-control" required>
+														<?php foreach($studylevels as $item):?>
+															<option value="<?=$item['id'];?>"><?=$item['title']?></option>
+														<?php endforeach;?>
+													</select>											
+												</td>
+											</tr>
+											
+											<tr>
+												<td colspan="2">
+													<label for="id_spec">Ихтисос:</label>
+													<select name="id_spec" id="id_spec" class="form-control" required>
+														<option value="">-Факултетро интихоб кунед-</option>
+													</select>
+												</td>
+												
+												<td>
+													<label for="id_s_v">Намуди таҳсил:</label>
+													<select name="id_s_v" id="id_s_v" class="form-control" required>
+														<?php foreach($studyviews as $item):?>
+															<option value="<?=$item['id'];?>"><?=$item['title']?></option>
+														<?php endforeach;?>
+													</select>	
+												</td>
+											</tr>
+											
+											<tr>
+												<td class="w33">
+													<label for="id_course">Курс:</label>
+													<select name="id_course" id="id_course" class="form-control" required>
+														<?php foreach($courses as $item):?>
+															<option value="<?=$item['id'];?>"><?=$item['title']?></option>
+														<?php endforeach;?>
+													</select>	
+												</td>
+												
+												<td class="w33">
+													<label for="id_group">Гуруҳ:</label>
+													<select name="id_group" id="id_group" class="form-control" required>
+														<?php foreach($groups as $item):?>
+															<option value="<?=$item['id'];?>"><?=$item['title']?></option>
+														<?php endforeach;?>
+													</select>	
+												</td>
+												
+												<td class="w33">
+													<label for="id_s_t">Шакли таҳсил:</label>
+													<select name="id_s_t" id="id_s_t" class="form-control" required>
+														<?php foreach($studytypes as $item):?>
+															<option value="<?=$item['id'];?>"><?=$item['title']?></option>
+														<?php endforeach;?>
+													</select>	
+												</td>
+											</tr>
+											
+											
+											
+											<tr>
+												<td>
+													<label for="number_mmt">№ - ММТНПҶТ:</label>
+													<input type="text" name="number_mmt" id="number_mmt" class="form-control">
+												</td>
+												
+												
+												<td>
+													<label for="score_mmt">Бали умумӣ аз ММТ:</label>
+													<input type="text" name="score_mmt" id="score_mmt" class="form-control">
+												</td>
+												
+												<td>
+													<label for="money">Маблағи шартнома:</label>
+													<input disabled type="text" name="money" id="money" class="form-control">
+												</td>
+												
+											</tr>
+											
+											<tr>
+												<td id="loadsemetrs" colspan="3">
+													<label>Семестҳоро интихоб кунед:</label><br>
+													<?php for($nimsola = 1; $nimsola <= 2; $nimsola++):?>
+														<div style="float: left; margin: 10px">
+															
+															<div class="checkbox-zoom zoom-success">
+																<label class="semestr" for="semestr_<?=getSemestr(1, $nimsola)?>">
+																	<input <?php if(H_Y == $nimsola){ echo "checked";}?> type="checkbox" name="semestr[<?=S_Y?>_<?=$nimsola?>]" id="semestr_<?=getSemestr(1, $nimsola)?>" value="<?=S_Y?>_<?=$nimsola?>_<?=$course?>">
+																	<span class="cr">
+																		<i class="cr-icon icofont icofont-ui-check txt-success"></i>
+																	</span>
+																	<span>Курси 1 (Соли таҳсили <?=getStudyYear(S_Y)?>, Нимсолаи <?=$nimsola?>)</span>
+																</label>
+															</div>
+														
+														</div>
+														<?php if($nimsola == H_Y) break; ?>
+													<?php endfor;?>
+												
+												</td>
+												
+												
+												
+											</tr>
+											
+											<tr>
+												<td colspan="2">
+													<label for="fullname">Ном, насаб, номи падар:</label>
+													<input type="text" name="fullname" id="fullname" class="form-control" required>	
+												</td>
+												<td>
+													<label for="jins">Ҷинс:</label>
+													<select name="jins" id="jins" class="form-control" required>
+														<option value="">Интихоб кунед!!!</option>
+														<option value="1">Мард</option>
+														<option value="0">Зан</option>
+													</select>
+												</td>
+											</tr>
+											
+											
+											
+											<tr>
+												<td colspan="2">
+													<label for="fullname_ru">Ном, насаб, номи падар (Русӣ):</label>
+													<input type="text" name="fullname_ru" id="fullname_ru" class="form-control" required>	
+												</td>
+												<td style="vertical-align: bottom">
+													
+													<div class="checkbox-zoom zoom-success">
+														<label class="semestr" for="foreign">
+															<input type="checkbox" name="foreign" id="foreign">
+															<span class="cr">
+																<i class="cr-icon icofont icofont-ui-check txt-success"></i>
+															</span>
+															<span>Қабули хориҷӣ</span>
+														</label>
+													</div>
+													
+												</td>
+											</tr>
+											
+											
+											<tr>
+												<td>
+													<label for="login">Логин:</label>
+													<input autocomplete="off" required type="text" name="login" id="login" class="form-control">
+												</td>
+												
+												<td>
+													<label for="password">Парол:</label>
+													<input autocomplete="off" required type="text" name="password" id="password" class="form-control">
+												</td>
+												
+												<td>
+													<label for="photo">Расмро интихоб кунед:</label><br>
+													<input type="file" name="photo" id="photo" >
+												</td>
+											</tr>
+											
+											
+											<tr>
+												<td>
+													<label for="number_passport">Рақами шиноснома:</label>
+													<input autocomplete="off" type="text" name="number_passport" id="number_passport" placeholder="A02319960" class="form-control">
+												</td>
+												
+												<td>
+													<label for="sanai_dodani_passport">Санаи додани шиноснома:</label>
+													<input type="date" name="sanai_dodani_passport" id="sanai_dodani_passport" class="form-control">
+												</td>
+												
+												<td>
+													<label for="maqomot">Мақоми шиносномадиҳанда:</label>
+													<input autocomplete="off" type="text" name="maqomot" id="maqomot" class="form-control">
+												</td>
+											</tr>
+											
+											
+											<tr>
+												<td>
+													<label for="birthday">Рузи таввалуд:</label>
+													<input type="date" name="birthday" id="birthday" class="form-control">
+												</td>
+												
+												
+												<td>
+													<label for="phone">Телефон:</label>
+													<input autocomplete="off" type="text" name="phone" id="phone" placeholder="+992987654321" class="form-control">
+												</td>
+												
+												<td>
+													<label for="parent_phone">Телефони волидайн:</label>
+													<input autocomplete="off" type="text" name="parent_phone" id="parent_phone" placeholder="+992987654321" class="form-control">
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													<label for="id_country">Мамлакат:</label>
+													<select name="id_country" id="id_country" class="form-control">
+														<option value="">-Интихоб кунед-</option>
+														<?php foreach($countries as $item):?>
+															<option value="<?=$item['id'];?>"><?=$item['title']?></option>
+														<?php endforeach;?>
+													</select>	
+												</td>
+												
+												<td>
+													<label for="id_region">Вилоят/Минтақа:</label>
+													<select name="id_region" id="id_region" class="form-control">
+														<option value="">-Мамлакатро интихоб кунед-</option>
+														<?php foreach($regions as $item):?>
+															<option value="<?=$item['id'];?>"><?=$item['name']?></option>
+														<?php endforeach;?>
+													</select>	
+												</td>
+												
+												<td>
+													<label for="id_district">Ноҳия/Шаҳр:</label>
+													<select name="id_district" id="id_district" class="form-control">
+														<option value="">-Вилоятро интихоб кунед-</option>
+														<?php foreach($districts as $item):?>
+															<option value="<?=$item['id'];?>"><?=$item['name']?></option>
+														<?php endforeach;?>
+													</select>	
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													<label for="id_nation">Миллат:</label>
+													<select name="id_nation" id="id_nation" class="form-control">
+														<?php foreach($nations as $item):?>
+															<option value="<?=$item['id'];?>"><?=$item['title']?></option>
+														<?php endforeach;?>
+													</select>
+												</td>
+												
+												<td>
+													<label for="vazi_oilavi">Ятим:</label>
+													<select name="vazi_oilavi" id="vazi_oilavi" class="form-control">
+														<?php foreach($vazi_oilavi as $item):?>
+															<option value="<?=$item['id'];?>"><?=$item['title']?></option>
+														<?php endforeach;?>
+													</select>
+												</td>
+												
+												<td>
+													<label for="current_address">Ҷойи зист:</label>
+													<textarea cols="40" rows="3" name="current_address" id="current_address" class="form-control"></textarea>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													<label for="xatm_namud">Хатм намуд:</label>
+													<select name="xatm_namud" id="xatm_namud" class="form-control">
+														<?php foreach($xatmnamud as $v => $k):?>
+															<option value="<?=$v?>"><?=$k?></option>
+														<?php endforeach;?>
+													</select>
+												</td>
+												
+												<td>
+													<label for="hujjati_xatm">Ҳуҷҷат:</label>
+													<select name="hujjati_xatm" id="hujjati_xatm" class="form-control">
+														<?php foreach($hujjati_xatm as $v => $k):?>
+															<option value="<?=$v?>"><?=$k?></option>
+														<?php endforeach;?>
+													</select>
+												</td>
+												
+												<td>
+													<label for="soli_xatm">Соли хатм:</label>
+													<input type="text" name="soli_xatm" id="soli_xatm" class="form-control">
+												</td>
+											</tr>
+											
+											
+											<tr>
+												<td>
+													<label for="silsila">Силсила:</label>
+													<input type="text" name="silsila" id="silsila" class="form-control">
+												</td>
+												
+												<td>
+													<label for="number_hujjat">№:</label>
+													<input type="text" name="number_hujjat" id="number_hujjat" class="form-control">
+												</td>
+												
+												<td>
+													<label for="date_hujjat">Санаи додани ҳуҷҷат:</label>
+													<input type="date" name="date_hujjat" id="date_hujjat" class="form-control">
+												</td>
+												
+											</tr>
+											
+											<tr>
+												<td>
+													<label for="number_scholl">№ мактаб:</label>
+													<input type="text" name="number_scholl" id="number_scholl" class="form-control">
+												</td>
+												
+												<td>
+													<label for="muasisa_name">Муасиссаи хатмкарда:</label>
+													<input type="text" name="muasisa_name" id="muasisa_name" class="form-control">
+												</td>
+												
+												
+												<td>
+													<label for="muasisa_lang">Забони таҳсил дар муасисса:</label>
+													<select name="muasisa_lang" id="muasisa_lang" class="form-control">
+														<?php foreach($langs as $v => $k): ?>
+															<option value="<?=$v;?>"><?=$k?></option>
+														<?php endforeach; ?>
+													</select>
+												</td>
+												
+											</tr>
+											
+											<tr>
+												<td>
+													<label for="vazi_ijtimoi">Вазъи иҷтимоӣ:</label>
+													<select name="vazi_ijtimoi" id="vazi_ijtimoi" class="form-control">
+														<?php foreach($vazi_ijtimoi as $v => $k): ?>
+															<option value="<?=$v;?>"><?=$k?></option>
+														<?php endforeach; ?>
+													</select>
+												</td>
+												
+												<td>
+													<label for="az_oilai_ki">Аз оилаи кӣ:</label>
+													<select name="az_oilai_ki" id="az_oilai_ki" class="form-control">
+														<?php foreach($az_oilai_ki as $v => $k): ?>
+															<option value="<?=$v;?>"><?=$k?></option>
+														<?php endforeach; ?>
+													</select>
+												</td>
+												
+												
+												<td>
+													<label for="vazi_oilavi_form">Вазъи оилавӣ:</label>
+													<select name="vazi_oilavi_form" id="vazi_oilavi_form" class="form-control">
+														<?php foreach($vazi_oilavi_form as $v => $k): ?>
+															<option value="<?=$v?>"><?=$k?></option>
+														<?php endforeach; ?>
+													</select>
+												</td>
+												
+											</tr>
+											
+											
+											
+											
+											<tr>
+												<td>
+													<label for="unvoni_harbi">Унвони ҳарбӣ:</label>
+													<select name="unvoni_harbi" id="unvoni_harbi" class="form-control">
+														<?php foreach($unvonho as $v => $k): ?>
+															<option value="<?=$v?>"><?=$k?></option>
+														<?php endforeach; ?>
+													</select>
+												</td>
+												
+												
+												<td>
+													<label for="lashkar">Қавм, лашкар:</label>
+													<select name="lashkar" id="lashkar" class="form-control">
+														<?php foreach($lashkar as $v => $k): ?>
+															<option value="<?=$v?>"><?=$k?></option>
+														<?php endforeach; ?>
+													</select>
+												</td>
+											</tr>
+											
+											
+											
+											
+											
+											<tr>
+												<td colspan="3">
+													<label for="family_info">Маълумот дар бораи аҳли оила:</label>
+													<textarea rows="5" style="width:100%" name="family_info" id="family_info" class="form-control">Падар - Модар -</textarea>
+												</td>
+											</tr>
+											
+											<tr>
+												<td>
+													<label for="email">E-mail:</label>
+													<input autocomplete="off" type="text" name="email" id="email" class="form-control">
+												</td>
+												
+												<td style="vertical-align: bottom">
+													
+													<div class="checkbox-zoom zoom-success">
+														<label class="semestr" for="xobgoh">
+															<input type="checkbox" name="xobgoh" id="xobgoh">
+															<span class="cr">
+																<i class="cr-icon icofont icofont-ui-check txt-success"></i>
+															</span>
+															<span>Ба хобгоҳ ниёз дорад</span>
+														</label>
+													</div>
+													
+												</td>
+												
+											</tr>
+											
+											<!--
+											<tr>
+												<td>
+													<label>Дохилшавӣ ё интиқол:</label><br>
+													
+													<div class="radio radio-inline">
+														<label>
+															<input type="radio" name="farmon_type" value="1" checked="checked">
+															<i class="helper"></i>Дохилшавӣ аз ММТ
+														</label>
+													</div>
+													<br>
+													<div class="radio radio-inline">
+														<label>
+															<input type="radio" name="farmon_type" value="2">
+															<i class="helper"></i>Интиқол аз дигар МТОК
+														</label>
+													</div>
+													
+													<div class="radio radio-inline">
+														<label>
+															<input type="radio" name="farmon_type" value="3">
+															<i class="helper"></i>Интиқоли дохилӣ
+														</label>
+													</div>
+													<br>
+													<div class="radio radio-inline">
+														<label>
+															<input type="radio" name="farmon_type" value="4">
+															<i class="helper"></i>Барқарор
+														</label>
+													</div>
+													<br>
+													<div class="radio radio-inline">
+														<label>
+															<input type="radio" name="farmon_type" value="5">
+															<i class="helper"></i>Барқарор интиқол
+														</label>
+													</div>
+													
+													
+													
+												</td>
+												
+												<td>
+													<label for="farmon_number">Рақами фармон:</label>
+													<input autocomplete="off" type="text" name="farmon_number" id="farmon_number" class="form-control">
+												</td>
+												
+												<td>
+													<label for="farmon_date">Санаи фармон:</label>
+													<input type="date" name="farmon_date" id="farmon_date" class="form-control">
+												</td>
+												
+											</tr>
+											
+											-->
+											
+											<tr>
+												<td>
+													<br>
+													<button type="submit" class="btn btn-inverse waves-effect waves-light">
+														<i class="fa fa-save"></i> Сабткунӣ
+													</button>
+												</td>
+											</tr>
+										</table>
+									</form>
+									
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+		
+		$('.addform').on("change", "#id_spec, #id_s_l, #foreign", function () {
+			var id_spec = $('.addform #id_spec').val();
+			var id_s_l = $('.addform #id_s_l').val();
+			var foreign = $('.addform #foreign');
+			
+			
+			if (foreign.is(':checked')) {
+			   // Хориҷи
+			  var other = 'xoriji';
+			} else {
+			   // Тоҷик
+			  var other = 'tojik';
+			}
+			
+			
+			var my_url = '<?=MY_URL;?>';
+			var url = '<?=URL."modules/{$option}/{$option}_ajax.php?option=getShartnomaMoney";?>';
+			
+			$.ajax({
+				type: 'post',
+				url: url, //Путь к обработчику
+				data: {"id_spec": id_spec, "id_s_l": id_s_l, "other": other},
+				success: function(data){
+					$('#money').val(data);
+				}
+			});
+			
+		});
+		
+		
+		
+		$('.addform').on("change", "#id_faculty, #id_s_l", function () {
+			var id_faculty = $('.addform #id_faculty').val();
+			var id_s_l = $('.addform #id_s_l').val();
+			
+			var my_url = '<?=MY_URL;?>';
+			var url = '<?=URL."modules/{$option}/{$option}_ajax.php?option=getSpecs";?>';
+			
+			$.ajax({
+				type: 'post',
+				url: url, //Путь к обработчику
+				data: {"id_faculty": id_faculty, "id_s_l": id_s_l},
+				success: function(data){
+					$('#id_spec').html(data);
+				}
+			});
+			
+		});
+		
+		$('.addform').on("change", "#id_course", function () {
+			var id_course = $('.addform #id_course').val();
+			
+			var my_url = '<?=MY_URL;?>';
+			var url = '<?=URL."modules/{$option}/{$option}_ajax.php?option=getSemestr";?>';
+			
+			$.ajax({
+				type: 'post',
+				url: url, //Путь к обработчику
+				data: {"id_course": id_course},
+				success: function(data){
+					$('#loadsemetrs').html(data);
+				}
+			});
+			
+		});
+		
+		$("#fullname").blur(function() {
+			var id_faculty = $('.addform #id_faculty').val();
+			var fullname = $(this).val();
+			
+			$.trim(fullname);
+			if(fullname == ''){
+				return false;
+			}
+			
+			var url = '<?=URL."modules/{$option}/{$option}_ajax.php?option=makeLogin";?>';
+			
+			$.ajax({
+				type: 'post',
+				url: url,
+				data: {"id_faculty": id_faculty, "fullname": fullname},
+				success: function(data){
+					$("#login").val(data);
+					$("#password").val(data);
+				}
+			});
+		});
+		
+		
+		$('.addform').on("change", "#id_country", function () {
+			var id_country = $('.addform #id_country').val();
+			
+			var my_url = '<?=MY_URL;?>';
+			var url = '<?=URL."modules/{$option}/{$option}_ajax.php?option=getRegions";?>';
+			
+			$.ajax({
+				type: 'post',
+				url: url, //Путь к обработчику
+				data: {"id_country": id_country},
+				success: function(data){
+					$('#id_region').html(data);
+				}
+			});
+			
+		});
+		
+		
+		
+		$('.addform').on("change", "#id_region", function () {
+			var id_region = $('.addform #id_region').val();
+			
+			var my_url = '<?=MY_URL;?>';
+			var url = '<?=URL."modules/{$option}/{$option}_ajax.php?option=getDistricts";?>';
+			
+			$.ajax({
+				type: 'post',
+				url: url, //Путь к обработчику
+				data: {"id_region": id_region},
+				success: function(data){
+					$('#id_district').html(data);
+				}
+			});
+			
+		});
+		
+		
+		
+	});
+</script>
