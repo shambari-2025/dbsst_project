@@ -1,0 +1,1 @@
+<?php include($_SERVER['DOCUMENT_ROOT']."/modules/$option/views/$action.php")?>
