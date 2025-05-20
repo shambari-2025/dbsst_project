@@ -1,0 +1,1 @@
+<h3 style="text-align:center; color:red;">Дар нимсолаи <?=$h_y?>, аз фанни <?=getFanTest($id_fan)?>, бо забони <?=$langs[$zabon]?>, муаллиф <?=getUserName($author)?>, дар рейтинги <?=$rating?> ба миқдори <?=count($questions)?> савол мавҷуд аст!</h3>
