@@ -1,0 +1,170 @@
+<div class="pcoded-content">
+	<div class="page-header card">
+		<div class="row align-items-end">
+			
+			<div class="col-lg-12">
+				<div class="page-header-breadcrumb">
+					<ul class=" breadcrumb breadcrumb-title">
+						<li class="breadcrumb-item">
+							<a href="<?=MY_URL?>"><i class="feather icon-home"></i></a>
+						</li>
+						<li class="breadcrumb-item">
+							Сохтор
+						</li>
+						<li class="breadcrumb-item">
+							<?=getFaculty($id)?>
+						</li>
+						
+						<li class="breadcrumb-item">
+							Ихтисосҳо
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="pcoded-inner-content">
+		<div class="main-body">
+			<div class="page-wrapper">
+				<div class="page-body">
+					<div class="row">
+						
+						<!-- Large modal -->
+						<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal-dialog modal-lg" style="max-width: 80%;">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h6 class="modal-title" id="myModalLabel"></h6>
+										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+									</div>
+									<div class="modal-body" id="bigmodal">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Large modal -->
+						
+						<div class="col-xl-12 col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h5>Руйхати ихтисосҳо</h5>
+								</div>
+								<div class="card-block">
+									<button data-toggle="modal" data-target=".bs-example-modal-lg" class="add btn btn-inverse waves-effect waves-light" type="button" style="float: right">
+										<a data-toggle="modal" data-target=".bs-example-modal-lg" class="add davrifaol" href="javascript:">
+											<i class="fa fa-plus"></i> Иловакунӣ
+										</a>
+									</button>
+									<div style="clear:both"></div>
+									<hr>
+									<div class="table-responsive davrifaol">
+										<table class="table" style="font-size:14px">
+											<thead class="center">
+												<tr style="background-color: #263544; color: #fff">
+													<th style="width:70px">№</th>
+													<th style="width:70px">ID</th>
+													<th style="width:650px">Номгӯи ихтисосҳо</th>
+													<th style="width:70px">Зинаи таҳсил</th>
+													<th>Амалҳо</th>
+												</tr>
+											</thead>
+											<tbody class="center">
+												<?php if(!empty($specs)):?>
+												
+													<?php $counter = 0;?>
+													<?php foreach($specs as $item):?>
+														<tr>
+															<th scope="row"><?=++$counter?>.</th>
+															<th scope="row"><?=$item['id']?></th>
+															<td class="left">
+																<?=$item['code']?> - <?=$item['title_tj']?>
+															</td>
+															<th scope="row"><?=getStudyLevel($item['id_s_l'])?></th>
+															<td class="elements">
+																<a class="edit" href="javascript" data-toggle="modal" data-target=".bs-example-modal-lg" data-id="<?=$item['id']?>"><i class="fa fa-edit"></i> </a>
+																<!--<a href="#"><i class="fa fa-trash"></i> </a>-->
+															</td>
+														</tr>
+													<?php endforeach;?>
+												<?php else: ?>
+													<tr class="center bold">
+														<td colspan="5">
+															<i class="fa fa-warning"></i> Маълумот нест.
+														</td>
+													</tr>
+												<?php endif;?>
+											</tbody>
+										</table>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+		
+		$('.add').on('click', function(){
+			
+			var id_faculty = <?=$id?>;
+			$('.modal-dialog').css("max-width", "60%");
+			$('.modal-title').text("Иловакунии ихтисос");
+			
+			var my_url = '<?=MY_URL;?>';
+			var url = '<?=URL."modules/{$option}/{$option}_ajax.php?option=addForm";?>';
+			
+			$.ajax({
+				type: 'post',
+				url: url, //Путь к обработчику
+				data: {"file": "spec_add", "id_faculty": id_faculty, "my_url": my_url},
+				beforeSend: function(){
+					$('#bigmodal').html('<center><img class="loading" style="width:64px" src="<?=TMPL_URL?>gif/loading-6.gif" alt="Loading"></center>');
+				},
+				success: function(data){
+					$('#bigmodal img').hide();
+					$('#bigmodal').html(data);
+				}
+			});
+			$('#bigmodal').html("");
+			
+		});
+		
+		$('.edit').on('click', function(){
+			var id = $(this).attr("data-id");
+			
+			$('.modal-dialog').css("max-width", "60%");
+			$('.modal-title').text("Таҳриркунӣ");
+			$('#bigmodal').html('<div class="load"></div>');
+			
+			
+			var my_url = '<?=MY_URL;?>';
+			var url = '<?=URL."modules/{$option}/{$option}_ajax.php?option=editForm";?>';
+			
+			$.ajax({
+				type: 'post',
+				url: url, //Путь к обработчику
+				data: {"file": "spec_edit", "id": id, "my_url": my_url},
+				beforeSend: function(){
+					$('#bigmodal').html('<center><img class="loading" style="width:64px" src="<?=TMPL_URL?>gif/loading-6.gif" alt="Loading"></center>');
+				},
+				success: function(data){
+					$('#bigmodal img').hide();
+					$('#bigmodal').html(data);
+				}
+			});
+			$('#bigmodal').html("");
+			
+		});
+	});
+</script>
